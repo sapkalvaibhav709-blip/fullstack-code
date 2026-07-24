@@ -1,0 +1,44 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: ap-south-1
+    IMAGE_REPO_NAME: sample/backend
+    IMAGE_TAG: latest
+
+phases:
+
+  pre_build:
+
+    commands:
+
+      - echo Logging into Amazon ECR
+
+      - aws --version
+
+      - ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 495456621615.dkr.ecr.ap-south-1.amazonaws.com
+
+  build:
+
+    commands:
+
+      - echo Build started
+
+      - docker build -t sample/backend .
+
+      - docker tag sample/backend:latest 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest
+
+  post_build:
+
+    commands:
+
+      - docker push 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest
+
+      - printf '[{"name":"backend","495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend":"%s"}]' $495456621615.dkr.ecr.$ap-south-1.amazonaws.com/$sample/backend:$latest > imagedefinitions.json
+
+artifacts:
+
+  files:
+    - imagedefinitions.json
