@@ -18,7 +18,7 @@ phases:
   build:
     commands:
       - echo "Build started on $(date)"
-      - docker build -t sample/backend . -f backend/Dockerfile backend
+      - docker build -t sample/backend:latest -f backend/Dockerfile backend
       - docker tag sample/backend:latest 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest
 
   post_build:
