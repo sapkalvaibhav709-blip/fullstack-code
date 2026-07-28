@@ -31,4 +31,4 @@ phases:
 
 artifacts:
   files:
-    - imagedefinations.json
+    - imagedefinitions.json
