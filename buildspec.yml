@@ -21,16 +21,13 @@ phases:
       - docker build -t sample/backend:latest -f backend/Dockerfile backend
       - docker tag sample/backend:latest 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest
 
-  # post_build:
-  #   commands:
-  #     - echo "Pushing Docker image to Amazon ECR..."
-  #     - docker push 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest
-  #     - printf '[{"name":"backend","495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest":"%s"}]' "495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest" > imagedefinitions.json
   post_build:
-  commands:
-    - echo "Pushing Docker image to Amazon ECR..."
-    - docker push $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-    - printf '[{"name":"backend","imageUri":"%s"}]' "$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG" > imagedefinitions.json
+    commands:
+      - echo "Pushing Docker image to Amazon ECR..."
+      - docker push 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest
+      - printf '[{"name":"backend","495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest":"%s"}]' "495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/backend:latest" > imagedefinitions.json
+  
+  
 
 artifacts:
   files:
