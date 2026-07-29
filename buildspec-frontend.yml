@@ -25,10 +25,10 @@ phases:
     commands:
       - echo "Pushing Docker image to Amazon ECR..."
       - docker push 495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/frontend:latest
-      - printf '[{"name":"poc","imageUri":"%s"}]' "495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/frontend:latest" > imagedefinitions.json
+      - printf '[{"name":"poc","imageUri":"%s"}]' "495456621615.dkr.ecr.ap-south-1.amazonaws.com/sample/frontend:latest" > frontend-imagedefinitions.json
   
   
 
 artifacts:
   files:
-    - imagedefinitions.json
+    - frontend-imagedefinitions.json
