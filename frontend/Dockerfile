@@ -1,13 +1,19 @@
-FROM python:3.12-slim
+FROM nginx:alpine
 
-WORKDIR /app
+# Remove the default Nginx web content
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY requirements.txt .
+# Copy the frontend files
+COPY index.html /usr/share/nginx/html/
 
-RUN pip install --no-cache-dir -r requirements.txt
+# If you have CSS, JS, images, copy them as well
+# COPY css /usr/share/nginx/html/css
+# COPY js /usr/share/nginx/html/js
+# COPY assets /usr/share/nginx/html/assets
 
-COPY app ./app
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["nginx", "-g", "daemon off;"]
