@@ -16,7 +16,7 @@ app.add_middleware(
 @app.get("/")
 def home():
     return {
-        "message": "Backend is running successfully!",
+        "message": "Backend is updated successfully",
         "hostname": socket.gethostname(),
         "environment": os.getenv("ENV", "Development")
     }
